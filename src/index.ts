@@ -1,18 +1,16 @@
-import path from "path";
-import { Client, ClientOptions } from "./types/Client";
+import express, { Request, Response } from "express";
+import * as Result from "./endpoints/Result";
 
-class InsightfulClient extends Client {}
+const app = express();
+const port = process.env.PORT || 8080;
 
-const options = {
-  streaming: false
-} as ClientOptions;
-const client = new InsightfulClient(options);
+app.get("/", (req: Request, res: Response) => {
+  res.send("Server for the insightful dashboard.");
+});
 
-// client.compareJSON();
-async function example() {
-  const oldObj = await client.parseJSONFile(path.join(__dirname, "../example/old.json"));
-  const newObj = await client.parseJSONFile(path.join(__dirname, "../example/new.json"));
-  client.compareObjects(oldObj, newObj);
-}
+app.get("/results", Result.get);
+app.post("/results", Result.post);
 
-example();
+app.listen(port, () => {
+  console.log(`Server listening on port: ${port}`);
+});
