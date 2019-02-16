@@ -7,5 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eduardo J. Velasco",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-nodemon": "^2.4.2",
+    "gulp-typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/node": "^11.9.4",
+    "typescript": "^3.3.3"
+  }
 }
