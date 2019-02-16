@@ -1,8 +1,18 @@
-import { Client } from "./types/Client";
+import path from "path";
+import { Client, ClientOptions } from "./types/Client";
 
 class InsightfulClient extends Client {}
 
-const client = new InsightfulClient();
+const options = {
+  streaming: false
+} as ClientOptions;
+const client = new InsightfulClient(options);
 
-client.compareFile();
-client.compareJSON();
+// client.compareJSON();
+async function example() {
+  const oldObj = await client.parseJSONFile(path.join(__dirname, "../example/old.json"));
+  const newObj = await client.parseJSONFile(path.join(__dirname, "../example/new.json"));
+  client.compareObjects(oldObj, newObj);
+}
+
+example();
