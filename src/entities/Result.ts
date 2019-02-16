@@ -1,22 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { IsString, IsDate, IsBoolean } from "class-validator";
 
 @Entity()
-export class Result {
+export class Result extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  apiKey: string;
+  @IsString()
+  api_key: string;
 
   @Column()
-  time: Date;
+  @IsDate()
+  created_at: Date;
 
   @Column()
+  @IsString()
   project: string;
 
   @Column()
+  @IsBoolean()
   error: boolean;
 
   @Column()
+  @IsString()
   message: string;
 }
