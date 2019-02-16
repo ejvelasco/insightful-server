@@ -17,9 +17,11 @@
     "gulp-typescript": "^5.0.0"
   },
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.16.1",
     "@types/node": "^11.9.4",
     "@types/underscore": "^1.8.9",
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "class-validator": "^0.9.1",
     "express": "^4.16.4",
@@ -28,6 +30,7 @@
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.13",
     "typescript": "^3.3.3",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+    "uuid-apikey": "^1.4.2"
   }
 }

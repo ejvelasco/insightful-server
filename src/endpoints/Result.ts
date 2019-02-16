@@ -4,7 +4,7 @@ import { Result } from "./../entities/Result";
 
 export async function get(req: Request, res: Response) {
   try {
-    const { api_key } = req.body;
+    const { api_key } = req.query;
     //@TODO: paginate request
     const results = await Result.find({
       api_key
@@ -31,7 +31,6 @@ export async function post(req: Request, res: Response) {
     }
     await result.save();
     res.json({ id: result.id });
-    res.json(true);
   } catch (err) {
     res.sendStatus(500);
   }
