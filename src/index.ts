@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import path from "path";
 import * as ResultEpt from "./endpoints/Result";
 import * as UserEpt from "./endpoints/User";
 import * as SessionEpt from "./endpoints/Session";
@@ -14,6 +15,7 @@ async function startServer() {
   const port = process.env.PORT || 8080;
 
   app.use(bodyParser.json());
+  app.use(express.static("dist"))
 
   try {
     await createConnection({
@@ -24,16 +26,13 @@ async function startServer() {
       password: "6db659b7",
       dropSchema: false,
       database: "heroku_933f21ba379dd9d",
-      synchronize: true,
+      synchronize: false,
       logging: false,
       entities: [Result, User]
     });
   } catch (err) {
     console.log(err);
   }
-  app.get("/", (req: Request, res: Response) => {
-    res.send("Server for the insightful dashboard.");
-  });
   // users
   app.post("/users", UserEpt.post);
   // session
@@ -42,6 +41,10 @@ async function startServer() {
   app.get("/results", ResultEpt.get);
   subscribers: ["src/subscribers/**/*.js"];
   app.post("/results", ResultEpt.post);
+  // dashboard
+  app.get("*", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "../dist/index.html"));
+  });
   //start
   app.listen(port, () => {
     console.log(`Server listening on port: ${port}`);
