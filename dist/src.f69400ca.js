@@ -47061,7 +47061,17 @@ function (_super) {
                 _a.label = 1;
 
               case 1:
-                _a.trys.push([1, 5,, 7]);
+                _a.trys.push([1, 6,, 8]);
+
+                return [4
+                /*yield*/
+                , this.setState({
+                  hasError: false,
+                  hasSuccess: false
+                })];
+
+              case 2:
+                _a.sent();
 
                 return [4
                 /*yield*/
@@ -47069,32 +47079,32 @@ function (_super) {
                   fields: fields
                 })];
 
-              case 2:
+              case 3:
                 res = _a.sent();
                 err = res.data.err;
                 if (!err) return [3
                 /*break*/
-                , 4];
+                , 5];
                 return [4
                 /*yield*/
                 , this.setState({
                   hasError: true
                 })];
 
-              case 3:
+              case 4:
                 _a.sent();
 
                 return [2
                 /*return*/
                 ];
 
-              case 4:
+              case 5:
                 window.location.href = "/dashboard/home";
                 return [3
                 /*break*/
-                , 7];
+                , 8];
 
-              case 5:
+              case 6:
                 err_1 = _a.sent();
                 return [4
                 /*yield*/
@@ -47102,15 +47112,15 @@ function (_super) {
                   hasError: true
                 })];
 
-              case 6:
+              case 7:
                 _a.sent();
 
                 console.log(err_1);
                 return [3
                 /*break*/
-                , 7];
+                , 8];
 
-              case 7:
+              case 8:
                 return [2
                 /*return*/
                 ];
@@ -47487,7 +47497,16 @@ function (_super) {
                 _a.label = 1;
 
               case 1:
-                _a.trys.push([1, 4,, 6]);
+                _a.trys.push([1, 5,, 7]);
+
+                return [4
+                /*yield*/
+                , this.setState({
+                  hasError: false
+                })];
+
+              case 2:
+                _a.sent();
 
                 return [4
                 /*yield*/
@@ -47495,7 +47514,7 @@ function (_super) {
                   fields: fields
                 })];
 
-              case 2:
+              case 3:
                 res = _a.sent();
                 return [4
                 /*yield*/
@@ -47503,14 +47522,14 @@ function (_super) {
                   hasSuccess: true
                 })];
 
-              case 3:
+              case 4:
                 _a.sent();
 
                 return [3
                 /*break*/
-                , 6];
+                , 7];
 
-              case 4:
+              case 5:
                 err_1 = _a.sent();
                 return [4
                 /*yield*/
@@ -47518,15 +47537,15 @@ function (_super) {
                   hasError: true
                 })];
 
-              case 5:
+              case 6:
                 _a.sent();
 
                 console.log(err_1);
                 return [3
                 /*break*/
-                , 6];
+                , 7];
 
-              case 6:
+              case 7:
                 return [2
                 /*return*/
                 ];
@@ -102209,7 +102228,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59197" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62570" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
