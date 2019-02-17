@@ -14,7 +14,7 @@ export async function post(req: Request, res: Response) {
     const userDb = await User.findOne({
         email: fields.email
     });
-    if (userDb || (fields.password != fields.confirmPassword)) {
+    if (userDb || (fields.password != fields.passwordConfirm)) {
         res.sendStatus(400);
         return; 
     }
