@@ -2,6 +2,11 @@ import { Request, Response } from "express";
 import { User } from "../entities/User";
 import bcrypt from "bcrypt";
 
+export async function get(req: Request, res: Response) {
+  res.clearCookie("id");
+  res.redirect("/sign-in");
+}
+
 export async function post(req: Request, res: Response) {
   try {
     const { fields } = req.body;
@@ -20,6 +25,7 @@ export async function post(req: Request, res: Response) {
         err: "password"
       });
     } else {
+      res.cookie("id", user.id);
       res.json({
         id: user.id
       });

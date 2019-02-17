@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import cookieParser from "cookie-parser";
 import path from "path";
 import * as ResultEpt from "./endpoints/Result";
 import * as UserEpt from "./endpoints/User";
@@ -15,7 +16,8 @@ async function startServer() {
   const port = process.env.PORT || 8080;
 
   app.use(bodyParser.json());
-  app.use(express.static("dist"))
+  app.use(cookieParser());
+  app.use(express.static("dist"));
 
   try {
     await createConnection({
@@ -37,6 +39,7 @@ async function startServer() {
   app.post("/users", UserEpt.post);
   // session
   app.post("/sessions", SessionEpt.post);
+  app.get("/sessions", SessionEpt.get);
   // results
   app.get("/results", ResultEpt.get);
   subscribers: ["src/subscribers/**/*.js"];
@@ -44,6 +47,12 @@ async function startServer() {
   // dashboard
   app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "../dist/index.html"));
+    const { id } = req.cookies;
+    if (id) {
+      res.redirect("/dashboard/home");
+    } else if (req.path != "/sign-in") {
+      res.redirect("/sign-in");
+    }
   });
   //start
   app.listen(port, () => {
