@@ -24,7 +24,7 @@ async function startServer() {
       password: "6db659b7",
       dropSchema: false,
       database: "heroku_933f21ba379dd9d",
-      synchronize: false,
+      synchronize: true,
       logging: false,
       entities: [Result, User]
     });
