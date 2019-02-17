@@ -22,6 +22,7 @@ export async function post(req: Request, res: Response) {
     user.hash = await bcrypt.hash(fields.password, saltRounds)
     const errors = await validate(user);
     if (errors.length > 0) {
+      console.log(errors);
       res.sendStatus(400);
       return;
     }

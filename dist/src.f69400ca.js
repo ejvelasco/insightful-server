@@ -47003,8 +47003,7 @@ function (_super) {
     var _this = _super !== null && _super.apply(this, arguments) || this;
 
     _this.state = {
-      hasError: false,
-      hasSuccess: false
+      hasError: false
     };
     return _this;
   }
@@ -47062,7 +47061,7 @@ function (_super) {
                 _a.label = 1;
 
               case 1:
-                _a.trys.push([1, 6,, 8]);
+                _a.trys.push([1, 5,, 7]);
 
                 return [4
                 /*yield*/
@@ -47090,20 +47089,12 @@ function (_super) {
                 ];
 
               case 4:
-                return [4
-                /*yield*/
-                , this.setState({
-                  hasSuccess: true
-                })];
-
-              case 5:
-                _a.sent();
-
+                window.location.href = "/dashboard/home";
                 return [3
                 /*break*/
-                , 8];
+                , 7];
 
-              case 6:
+              case 5:
                 err_1 = _a.sent();
                 return [4
                 /*yield*/
@@ -47111,15 +47102,15 @@ function (_super) {
                   hasError: true
                 })];
 
-              case 7:
+              case 6:
                 _a.sent();
 
                 console.log(err_1);
                 return [3
                 /*break*/
-                , 8];
+                , 7];
 
-              case 8:
+              case 7:
                 return [2
                 /*return*/
                 ];
@@ -47142,29 +47133,7 @@ function (_super) {
         marginTop: "10px",
         color: "#2B98F0"
       }
-    }, "Don't have an account?"))), hasSuccess ? React.createElement(Alert_1["default"], {
-      style: {
-        marginTop: "10px"
-      },
-      onClose: function onClose(event, reason) {
-        if (reason === "clickaway") {
-          return;
-        }
-
-        _this.setState({
-          open: false
-        });
-      },
-      variant: "success",
-      message: React.createElement("p", null, "Your account is ready!", " ", React.createElement(react_router_dom_1.Link, {
-        to: "sign-in",
-        style: {
-          textDecoration: "none",
-          color: "white",
-          fontWeight: 700
-        }
-      }, "Sign In"))
-    }) : null, hasError ? React.createElement(Alert_1["default"], {
+    }, "Don't have an account?"))), hasError ? React.createElement(Alert_1["default"], {
       style: {
         marginTop: "10px"
       },
