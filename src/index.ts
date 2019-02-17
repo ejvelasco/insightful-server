@@ -18,12 +18,12 @@ async function startServer() {
   try {
     await createConnection({
       type: "mysql",
-      host: "localhost",
+      host: "us-cdbr-iron-east-03.cleardb.net",
       port: 3306,
-      username: "root",
-      password: "root",
+      username: "bbd92dfba4e611",
+      password: "6db659b7",
       dropSchema: false,
-      database: "insightful",
+      database: "heroku_933f21ba379dd9d",
       synchronize: false,
       logging: false,
       entities: [Result, User]
