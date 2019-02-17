@@ -45,14 +45,14 @@ async function startServer() {
   subscribers: ["src/subscribers/**/*.js"];
   app.post("/results", ResultEpt.post);
   // dashboard
-  app.get("*", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "../dist/index.html"));
-    const { id } = req.cookies;
-    if (id) {
-      res.redirect("/dashboard/home");
-    } else if (req.path != "/sign-in") {
-      res.redirect("/sign-in");
-    }
+  app.get("/sign*", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "../dist/app.html"));
+  });
+  app.get("/dashboard*", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "../dist/app.html"));
+  });
+  app.get("/", (req: Request, res: Response) => {
+    res.redirect("/sign-in");
   });
   //start
   app.listen(port, () => {
