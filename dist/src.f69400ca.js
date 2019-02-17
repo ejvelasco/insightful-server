@@ -47012,9 +47012,7 @@ function (_super) {
     var _this = this;
 
     var classes = this.props.classes;
-    var _a = this.state,
-        hasSuccess = _a.hasSuccess,
-        hasError = _a.hasError;
+    var hasError = this.state.hasError;
     return React.createElement("main", {
       className: classes.main
     }, React.createElement(CssBaseline_1["default"], null), React.createElement(Paper_1["default"], {
@@ -47075,7 +47073,7 @@ function (_super) {
 
                 return [4
                 /*yield*/
-                , axios_1["default"].post("https://insightful-server.herokuapp.com/sessions", {
+                , axios_1["default"].post("/sessions", {
                   fields: fields
                 })];
 
@@ -47510,7 +47508,7 @@ function (_super) {
 
                 return [4
                 /*yield*/
-                , axios_1["default"].post("https://insightful-server.herokuapp.com/users", {
+                , axios_1["default"].post("/users", {
                   fields: fields
                 })];
 
@@ -101405,7 +101403,12 @@ var Scatter = function (_React$Component10) {
 exports.Scatter = Scatter;
 var defaults = _chart.default.defaults;
 exports.defaults = defaults;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","chart.js":"../node_modules/chart.js/src/chart.js","lodash/isEqual":"../node_modules/lodash/isEqual.js","lodash/find":"../node_modules/lodash/find.js","lodash/keyBy":"../node_modules/lodash/keyBy.js","process":"../../../../../.nvm/versions/node/v10.14.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"components/Tabs.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","chart.js":"../node_modules/chart.js/src/chart.js","lodash/isEqual":"../node_modules/lodash/isEqual.js","lodash/find":"../node_modules/lodash/find.js","lodash/keyBy":"../node_modules/lodash/keyBy.js","process":"../../../../../.nvm/versions/node/v10.14.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"constants/time.ts":[function(require,module,exports) {
+"use strict";
+
+exports.__esModule = true;
+exports.hours = ["12:00am", "1:00am", "2:00am", "3:00am", "4:00am", "5:00am", "6:00am", "7:00am", "8:00am", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm", "11:00pm"];
+},{}],"components/Tabs.tsx":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -101470,13 +101473,27 @@ var MenuItem_1 = __importDefault(require("@material-ui/core/MenuItem"));
 
 var Typography_1 = __importDefault(require("@material-ui/core/Typography"));
 
-function buildChartData(color) {
+var time_1 = require("../constants/time");
+
+function buildChartData(value, color, results) {
+  if (value === 0) {
+    buildDailyChartData(color, results);
+  }
+}
+
+function buildDailyChartData(color, results) {
+  var resultData = time_1.hours.map(function (hour) {
+    return 0;
+  });
+  results.forEach(function (result) {
+    var hour = console.log(result.created_at);
+  });
   var data = {
-    labels: ["January", "February", "March", "April"],
+    labels: time_1.hours,
     datasets: [{
       backgroundColor: color.fade(0.5).toString(),
       borderColor: color.fade(0.5).toString(),
-      data: [4, 1, 3, 2],
+      data: results,
       fill: true
     }]
   };
@@ -101555,16 +101572,19 @@ function (_super) {
       });
     };
 
-    _this.fetchData = function (value) {
-      var color = _this.props.color;
-      return buildChartData(color);
-    };
-
     return _this;
   }
 
   SimpleTabs.prototype.render = function () {
     var value = this.state.value;
+    var _a = this.props,
+        color = _a.color,
+        results = _a.results;
+
+    if (!results) {
+      return null;
+    }
+
     return React.createElement("div", {
       style: {
         flexGrow: 1
@@ -101600,7 +101620,7 @@ function (_super) {
         backgroundColor: colors_1["default"].white
       }
     }, React.createElement(react_chartjs_2_1.Line, {
-      data: this.fetchData(value),
+      data: buildChartData(value, color, results),
       options: buildChartOptions("Success Rate")
     })));
   };
@@ -101609,8 +101629,173 @@ function (_super) {
 }(React.Component);
 
 exports["default"] = SimpleTabs;
-},{"react":"../node_modules/react/index.js","react-chartjs-2":"../node_modules/react-chartjs-2/es/index.js","../constants/colors":"constants/colors.ts","@material-ui/core/AppBar":"../node_modules/@material-ui/core/AppBar/index.js","@material-ui/core/Tabs":"../node_modules/@material-ui/core/Tabs/index.js","@material-ui/core/Tab":"../node_modules/@material-ui/core/Tab/index.js","@material-ui/core/Select":"../node_modules/@material-ui/core/Select/index.js","@material-ui/core/MenuItem":"../node_modules/@material-ui/core/MenuItem/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js"}],"components/Grid.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-chartjs-2":"../node_modules/react-chartjs-2/es/index.js","../constants/colors":"constants/colors.ts","@material-ui/core/AppBar":"../node_modules/@material-ui/core/AppBar/index.js","@material-ui/core/Tabs":"../node_modules/@material-ui/core/Tabs/index.js","@material-ui/core/Tab":"../node_modules/@material-ui/core/Tab/index.js","@material-ui/core/Select":"../node_modules/@material-ui/core/Select/index.js","@material-ui/core/MenuItem":"../node_modules/@material-ui/core/MenuItem/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/Typography/index.js","../constants/time":"constants/time.ts"}],"components/Grid.tsx":[function(require,module,exports) {
 "use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : new P(function (resolve) {
+        resolve(result.value);
+      }).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
 
 var __importStar = this && this.__importStar || function (mod) {
   if (mod && mod.__esModule) return mod;
@@ -101632,6 +101817,8 @@ exports.__esModule = true;
 
 var React = __importStar(require("react"));
 
+var axios_1 = __importDefault(require("axios"));
+
 var styles_1 = require("@material-ui/core/styles");
 
 var Grid_1 = __importDefault(require("@material-ui/core/Grid"));
@@ -101641,62 +101828,6 @@ var colors_1 = __importDefault(require("../constants/colors"));
 var core_1 = require("@material-ui/core");
 
 var Tabs_1 = __importDefault(require("./Tabs"));
-
-var successData = {
-  labels: ["January", "February", "March", "April"],
-  datasets: [{
-    backgroundColor: colors_1["default"].info.fade(0.5).toString(),
-    borderColor: colors_1["default"].info.fade(0.5).toString(),
-    data: [4, 1, 3, 2],
-    fill: true
-  }]
-};
-var errorData = {
-  labels: ["January", "February", "March", "April"],
-  datasets: [{
-    backgroundColor: colors_1["default"].error.fade(0.5).toString(),
-    borderColor: colors_1["default"].error.fade(0.5).toString(),
-    data: [2, 1, 0, 2],
-    fill: true
-  }]
-};
-
-function buildChartOptions(title) {
-  var options = {
-    responsive: true,
-    legend: {
-      display: false
-    },
-    title: {
-      display: true
-    },
-    tooltips: {
-      mode: "index",
-      intersect: false
-    },
-    hover: {
-      mode: "nearest",
-      intersect: true
-    },
-    scales: {
-      xAxes: [{
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: "Month"
-        }
-      }],
-      yAxes: [{
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: "Value"
-        }
-      }]
-    }
-  };
-  return options;
-}
 
 var styles = function styles(theme) {
   return {
@@ -101708,40 +101839,112 @@ var styles = function styles(theme) {
   };
 };
 
-function FullWidthGrid(props) {
-  var classes = props.classes;
-  return React.createElement("div", {
-    className: classes.root
-  }, React.createElement(Grid_1["default"], {
-    container: true,
-    spacing: 24
-  }, React.createElement(Grid_1["default"], {
-    item: true,
-    xs: 12,
-    sm: 6,
-    style: {}
-  }, React.createElement(core_1.Typography, {
-    variant: "h6",
-    color: "inherit",
-    gutterBottom: true
-  }, "Success Rate"), React.createElement(Tabs_1["default"], {
-    color: colors_1["default"].info
-  })), React.createElement(Grid_1["default"], {
-    item: true,
-    xs: 12,
-    sm: 6,
-    style: {}
-  }, React.createElement(core_1.Typography, {
-    variant: "h6",
-    color: "inherit",
-    gutterBottom: true
-  }, "Error Rate"), React.createElement(Tabs_1["default"], {
-    color: colors_1["default"].error
-  }))));
-}
+var FullWidthGrid =
+/** @class */
+function (_super) {
+  __extends(FullWidthGrid, _super);
+
+  function FullWidthGrid() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.state = {
+      errors: [],
+      successes: []
+    };
+
+    _this.getResults = function () {
+      return __awaiter(_this, void 0, void 0, function () {
+        var res, results, errors, successes, err_1;
+        return __generator(this, function (_a) {
+          switch (_a.label) {
+            case 0:
+              _a.trys.push([0, 2,, 3]);
+
+              return [4
+              /*yield*/
+              , axios_1["default"].get("/results", {
+                params: {
+                  api_key: "VMVK61C-1VSM6QY-HZV19R6-AXE5657"
+                }
+              })];
+
+            case 1:
+              res = _a.sent();
+              results = res.data;
+              errors = results.filter(function (result) {
+                return result.error;
+              });
+              successes = results.filter(function (result) {
+                return !result.error;
+              });
+              this.setState({
+                errors: errors,
+                successes: successes
+              });
+              return [3
+              /*break*/
+              , 3];
+
+            case 2:
+              err_1 = _a.sent();
+              return [3
+              /*break*/
+              , 3];
+
+            case 3:
+              return [2
+              /*return*/
+              ];
+          }
+        });
+      });
+    };
+
+    return _this;
+  }
+
+  FullWidthGrid.prototype.render = function () {
+    var _a = this.state,
+        errors = _a.errors,
+        successes = _a.successes;
+    var classes = this.props.classes;
+    return React.createElement("div", {
+      className: classes.root
+    }, React.createElement(Grid_1["default"], {
+      container: true,
+      spacing: 24
+    }, React.createElement(Grid_1["default"], {
+      item: true,
+      xs: 12,
+      sm: 6,
+      style: {}
+    }, React.createElement(core_1.Typography, {
+      variant: "h6",
+      color: "inherit",
+      gutterBottom: true
+    }, "Success Rate"), React.createElement(Tabs_1["default"], {
+      color: colors_1["default"].info,
+      results: successes
+    })), React.createElement(Grid_1["default"], {
+      item: true,
+      xs: 12,
+      sm: 6,
+      style: {}
+    }, React.createElement(core_1.Typography, {
+      variant: "h6",
+      color: "inherit",
+      gutterBottom: true
+    }, "Error Rate"), React.createElement(Tabs_1["default"], {
+      color: colors_1["default"].error,
+      results: errors
+    }))));
+  };
+
+  return FullWidthGrid;
+}(React.Component);
 
 exports["default"] = styles_1.withStyles(styles)(FullWidthGrid);
-},{"react":"../node_modules/react/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/Grid":"../node_modules/@material-ui/core/Grid/index.js","../constants/colors":"constants/colors.ts","@material-ui/core":"../node_modules/@material-ui/core/index.es.js","./Tabs":"components/Tabs.tsx"}],"components/DashboardBar.tsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","@material-ui/core/styles":"../node_modules/@material-ui/core/styles/index.js","@material-ui/core/Grid":"../node_modules/@material-ui/core/Grid/index.js","../constants/colors":"constants/colors.ts","@material-ui/core":"../node_modules/@material-ui/core/index.es.js","./Tabs":"components/Tabs.tsx"}],"components/DashboardBar.tsx":[function(require,module,exports) {
 "use strict";
 
 var __importStar = this && this.__importStar || function (mod) {
@@ -102228,7 +102431,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62570" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63858" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
